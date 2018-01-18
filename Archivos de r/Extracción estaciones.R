@@ -1,12 +1,11 @@
 library(readr)
 library(plotly)
-library(dplyr)
-library(caret) 
+library(dplyr) 
 library(knitr) 
 library(tidyr) 
 library(hms)
 
-matriz_distancias <- read.csv("C:\\Users\\acasillama\\Documents\\Archivos\\matriz dist.csv")
+matriz_distancias <- read.csv("C:\\Users\\lablogistica\\Documents\\Laboratorio\\Lab_Logistica\\Archivos de excel\\matriz dist.csv")
 
 for(i in 2:453)
   matriz_distancias[i,i+1] <- 0
@@ -15,16 +14,13 @@ for(i in 2:453)
 
 vector_estaciones <- c(0,0,0,0,0)
 vector_distancias <- c(0,0,0,0,0)
-datos_estaciones <- matrix(nrow = 453, ncol = 5)
-datos_distancias <- matrix(nrow = 453, ncol = 5)
+datos_estaciones <- matrix(nrow = 453, ncol = 15)
+datos_distancias <- matrix(nrow = 453, ncol = 15)
 
 for(i in 2:453){
-  provisional <- matriz_distancias %>% filter(matriz_distancias[i]>0 & matriz_distancias[i]<=0.1)
+  provisional <- matriz_distancias %>% filter(matriz_distancias[i]>0 & matriz_distancias[i]<=0.2)
   provisional
   tam <- dim(provisional)[1]
-  if(tam >5){
-    provisional <- provisional[1:5,]
-  }
   seleccion <- provisional[1]
   lol <- provisional[i]
   tam <- dim(provisional)[1]
