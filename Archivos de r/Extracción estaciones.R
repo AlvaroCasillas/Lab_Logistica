@@ -14,11 +14,11 @@ for(i in 2:453)
 
 vector_estaciones <- c(0,0,0,0,0)
 vector_distancias <- c(0,0,0,0,0)
-datos_estaciones <- matrix(nrow = 453, ncol = 15)
-datos_distancias <- matrix(nrow = 453, ncol = 15)
+datos_estaciones <- matrix(nrow = 453, ncol = 16)
+datos_distancias <- matrix(nrow = 453, ncol = 16)
 
 for(i in 2:453){
-  provisional <- matriz_distancias %>% filter(matriz_distancias[i]>0 & matriz_distancias[i]<=0.2)
+  provisional <- matriz_distancias %>% filter(matriz_distancias[i]>0 & matriz_distancias[i]<=0.5)
   provisional
   tam <- dim(provisional)[1]
   seleccion <- provisional[1]
