@@ -18,12 +18,18 @@ datos_estaciones <- matrix(nrow = 453, ncol = 16)
 datos_distancias <- matrix(nrow = 453, ncol = 16)
 
 for(i in 2:453){
-  provisional <- matriz_distancias %>% filter(matriz_distancias[i]>0 & matriz_distancias[i]<=0.5)
+  provisional <- matriz_distancias %>% filter(matriz_distancias[i]>0 & matriz_distancias[i]<=0.4)
   provisional
+  provisional <- provisional[with(provisional, order(provisional[i])),]
   tam <- dim(provisional)[1]
   seleccion <- provisional[1]
   lol <- provisional[i]
   tam <- dim(provisional)[1]
+  prov <- cbind(seleccion,lol)
+  names(prov)<- c("estacion", "distancia")
+  prov <- as.data.frame(prov)
+  #prov[order(prov$distancia),]
+  #prov <- prov[with(prov, order(prov$distancia)),]
   if(tam>0){
     for(j in 1:tam){
         datos_estaciones[i,j] <- seleccion[j,1]
@@ -43,6 +49,6 @@ for(i in 2:453){
 #    if(is.na(datos_distancias[i,j]))
 #      datos_distancias[i,j]<-as.integer(0)
 #  }
-    
+
     
     
