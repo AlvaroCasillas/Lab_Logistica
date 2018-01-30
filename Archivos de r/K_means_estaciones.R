@@ -12,7 +12,7 @@ ggplot(ubicaciones, aes(x=Longitud, y=Latitud)) +  geom_point() +  theme_bw()
 ubicaciones_escaladas <- scale(ubicaciones) %>% as.data.frame()
 summary(ubicaciones_escaladas)
 
-output_kmeans <- kmeans(ubicaciones_escaladas, centers=11, iter.max=10)
+output_kmeans <- kmeans(ubicaciones_escaladas, centers=10, iter.max=10)
 
 table(output_kmeans$cluster)
 
