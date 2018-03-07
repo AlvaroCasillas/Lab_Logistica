@@ -102,6 +102,14 @@ ecobici_sabado    <- ecobici %>% filter(Dia_Semana_Arribo ==7)
 
 proporcion <- c(1,423,32)
 
+
+ecobici_semana <- ecobici_semana %>% filter(Ciclo_Estacion_Arribo <= 452)
+tamaño <- dim(ecobici_semana[1])
+
 for (i in 1:452){
-  proporcion[i] <- dim(ecobici_semana %>% filter(CicloEstacion))
+  proporcion[i] <- dim(ecobici_semana %>% filter(Ciclo_Estacion_Arribo == i))
 }
+
+falta <-ecobici_semana %>% filter(Ciclo_Estacion_Arribo > 452)
+
+write.csv(proporcion, file = "Proporcion_viajes", row.names = FALSE, col.names = FALSE)
