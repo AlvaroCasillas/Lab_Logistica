@@ -30,10 +30,49 @@ public class Division_est {
     static final String SEPARATOR=",";
     static double [][] matriz_dist = new double [452][452];
     static int [] cercana = new int [452];
-            
+    
+    public static String calc(int indice, int indice2){
+        if (matriz_dist[indice][indice2]<0.5) {
+            if (latitud[indice2]<latitud[indice]) {
+                if (latitud[indice2]-latitud[indice]< longitud [indice2]-longitud[indice]) {
+                    if (longitud [indice2]<longitud[indice]) {
+                        return "izq";
+                    }
+                    else
+                        return "der";
+
+                }
+                else{
+                    return "abajo";
+                }
+            }
+            else{
+               if (latitud[indice2]-latitud[indice]< longitud [indice2]-longitud[indice]) {
+                    if (longitud [indice2]<longitud[indice]) {
+                        return "izq";
+                    }
+                    else
+                        return "der";
+
+                }
+                else{
+                    return "arriba";
+                } 
+            }
+        }
+
+       return "cualquiera";
+       
+    }
+    
+    public static double distancia(int or, int dest){
+        return (Math.acos(Math.sin(latitud[or]*Math.PI/180)*Math.sin(latitud[dest]*Math.PI/180)+Math.cos(latitud[or]*Math.PI/180)*Math.cos(latitud[dest]*Math.PI/180)*Math.cos((longitud[dest]*Math.PI/180)-(longitud[or]*Math.PI/180)))*6371);
+    }
     public static void main(String[] args) {
         // TODO code application logic here
         
+       
+       
        BufferedReader br = null;
        try {
          br =new BufferedReader(new FileReader("C:\\Users\\lablogistica\\Documents\\Laboratorio\\Lab_Logistica\\Archivos de excel\\Datos_algoritm.csv"));
@@ -45,7 +84,7 @@ public class Division_est {
                 longitud [i]=Double.parseDouble(fields[1]); //longitud;
                 latitud [i]=Double.parseDouble(fields[2]); //latitud;
                 candados[i]=Integer.parseInt(fields[3]); //número de candados
-                generadas[i]=Integer.parseInt(fields[4]); //si se generó de divisiones (1 es original, 2 es nueva)
+                generadas[i]=Integer.parseInt(fields[4]); //si era original (1 es original, 2 es nueva)
                 pareto[i]=Integer.parseInt(fields[5]); //Si está dentro de las que cubren el 75% de los viajes es 1, 2 si no está ahí dentro
                 line = br.readLine();
              }
@@ -59,7 +98,7 @@ public class Division_est {
         for (int i = 0; i < 452; i++) {
             for (int j = 0; j < 452; j++) {
                 if (i!=j) {
-                    matriz_dist[i][j]=(Math.acos(Math.sin(latitud[i]*Math.PI/180)*Math.sin(latitud[j]*Math.PI/180)+Math.cos(latitud[i]*Math.PI/180)*Math.cos(latitud[j]*Math.PI/180)*Math.cos((longitud[j]*Math.PI/180)-(longitud[i]*Math.PI/180)))*6371);
+                    matriz_dist[i][j]= distancia(i,j);
                 }
                 else{
                     matriz_dist[i][j]=0;
@@ -72,19 +111,15 @@ public class Division_est {
         int indices_cerc [][]=new int [452][];
         for (int i = 0; i < 452; i++) {
             int [] radio =new int [20];
-            for (int j = 0; j < 452; j++) {
-                if (matriz_dist[i][j]>0 && matriz_dist[i][j]<=.3) {
-                    radio[index] =j;
-                    index++;
-                }
-            }
+            
             index=0;
             indices_cerc[i]=radio;
-            for (int j = 0; j < (candados[i]/3); j++) {
+            for (int j = 0; j < (candados[i]/3)-1; j++) {
                 
             }
             
         }
+        
         
         
     }
