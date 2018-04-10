@@ -11,6 +11,8 @@ import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.*;
+import java.io.FileWriter;
 /**
  *
  * @author acasillama
@@ -30,6 +32,7 @@ public class Division_est {
     static final String SEPARATOR=",";
     static double [][] matriz_dist = new double [452][452];
     static int [] cercana = new int [452];
+    FileWriter writer = null;
     
     public static String calc(int indice, int indice2){
         if (matriz_dist[indice][indice2]<0.5) {
@@ -106,22 +109,68 @@ public class Division_est {
                 
             }
         }
-        
-        int index =0;
-        int indices_cerc [][]=new int [452][];
+        double [] nuevas_lat = new double [4050];
+        double [] nuevas_long = new double [4050];
+        int l=0;
         for (int i = 0; i < 452; i++) {
-            int [] radio =new int [20];
-            
-            index=0;
-            indices_cerc[i]=radio;
             for (int j = 0; j < (candados[i]/3)-1; j++) {
-                
+                Random r = new Random();
+                double randomValue1 = .0006 + (.0012 - .0006) * r.nextDouble();
+                double randomValue2 = .0006 + (.0012 - .0006) * r.nextDouble();
+                nuevas_lat[l]=latitud[i]+randomValue1;
+                nuevas_long[l]=longitud[i]+randomValue2;
+                l++;
             }
             
         }
         
+        String csv2= "C:\\Users\\lablogistica\\Documents\\Laboratorio\\Lab_Logistica\\Archivos de excel\\Nuevas.csv";
+        FileWriter w = null;
         
+        try{
+                w = new FileWriter(csv2);
+                for (int m = 0; m < nuevas_lat.length; m++)
+                        w.append(""+nuevas_lat[m]).append("\n");
+            } catch (Exception e) {
+               System.err.println("Error! "+e.getMessage());
+            } finally {
+               if (null!=w){
+                  try {
+                     w.flush();
+                  } catch (IOException e) {
+                     System.err.println("Error flushing file !! "+e.getMessage());
+                  }
+                  try {
+                     w.close();
+                  } catch (IOException e) {
+                     System.err.println("Error closing file !! "+e.getMessage());
+                  }
+               }
+            }
         
+        String csv3= "C:\\Users\\lablogistica\\Documents\\Laboratorio\\Lab_Logistica\\Archivos de excel\\Nuevas_long.csv";
+        FileWriter w2 = null;
+        
+        try{
+                w2 = new FileWriter(csv3);
+                for (int m = 0; m < nuevas_lat.length; m++)
+                        w2.append(""+nuevas_long[m]).append("\n");
+            } catch (Exception e) {
+               System.err.println("Error! "+e.getMessage());
+            } finally {
+               if (null!=w){
+                  try {
+                     w2.flush();
+                  } catch (IOException e) {
+                     System.err.println("Error flushing file !! "+e.getMessage());
+                  }
+                  try {
+                     w2.close();
+                  } catch (IOException e) {
+                     System.err.println("Error closing file !! "+e.getMessage());
+                  }
+               }
+            }
     }
     
 }
