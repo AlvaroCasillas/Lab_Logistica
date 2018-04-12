@@ -1,0 +1,3 @@
+Simular las estaciones divididas 
+En las tasas de arribos dividir las probabilidades entre el número de estaciones generadas 
+Generar ID que sea útil para rastrear la estación de la que proviene la nueva

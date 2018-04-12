@@ -98,7 +98,7 @@ public class Division_est {
          System.err.println("Error! "+e.getMessage());
       }
        
-        for (int i = 0; i < 452; i++) {
+       /* for (int i = 0; i < 452; i++) {
             for (int j = 0; j < 452; j++) {
                 if (i!=j) {
                     matriz_dist[i][j]= distancia(i,j);
@@ -108,15 +108,16 @@ public class Division_est {
                 }
                 
             }
-        }
-        double [] nuevas_lat = new double [4050];
-        double [] nuevas_long = new double [4050];
+        }*/
+        double [] nuevas_lat = new double [3615];
+        double [] nuevas_long = new double [3615];
         int l=0;
         for (int i = 0; i < 452; i++) {
             for (int j = 0; j < (candados[i]/3)-1; j++) {
                 Random r = new Random();
-                double randomValue1 = .0006 + (.0012 - .0006) * r.nextDouble();
-                double randomValue2 = .0006 + (.0012 - .0006) * r.nextDouble();
+                Random r2= new Random();
+                double randomValue1 = .001 + (.002 - .001) * r.nextDouble();
+                double randomValue2 = .0015 + (.006 - .0015) * r2.nextDouble();
                 nuevas_lat[l]=latitud[i]+randomValue1;
                 nuevas_long[l]=longitud[i]+randomValue2;
                 l++;
